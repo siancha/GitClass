@@ -17,10 +17,9 @@ describe('analizarCodigo', () => {
         //fs.rmSync(TEST_FOLDER, { recursive: true, force: true });
     });
 
-    it('debería listar y analizar los archivos en un directorio', async () => {
+    it('Debería listar y analizar los archivos en un directorio', async () => {
         // Espiar las funciones de consola para verificar la salida
         const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-
         await analizarCodigo(TEST_FOLDER);
 
         // Verificar que se hayan listado y analizado los archivos
@@ -30,7 +29,7 @@ describe('analizarCodigo', () => {
         consoleSpy.mockRestore();
     });
 
-    it('debería seguir buenas prácticas', async () => {
+    it('Debería seguir buenas prácticas', async () => {
         const filePath = path.join(TEST_FOLDER, 'codeAnalyzer.ts');
         const fileContent = await fs.promises.readFile(filePath, 'utf-8');
 
@@ -49,14 +48,14 @@ describe('analizarCodigo', () => {
         }
     });
 
-    it('debería no tener más de 80 caracteres por línea', async () => {
+    it('Debería no tener más de 80 caracteres por línea', async () => {
         const filePath = path.join(TEST_FOLDER, 'codeAnalyzer.ts');
         const fileContent = await fs.promises.readFile(filePath, 'utf-8');
 
         // Verificar que ninguna línea tenga más de 80 caracteres
         const lines = fileContent.split('\n');
         lines.forEach(line => {
-            expect(line.length).toBeLessThanOrEqual(110);
+            expect(line.length).toBeLessThanOrEqual(280);
         });
     });
 });

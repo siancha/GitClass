@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Pruebas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef1f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .header {
+            background-color: #004080;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #004080;
+            color: white;
+        }
+        .success { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        .nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #004080;
+            font-weight: bold;
+            margin: 0 15px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #f4f4f4;
+            transition: background 0.3s;
+        }
+        .nav a:hover {
+            background-color: #004080;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Resultados de Pruebas Jest</h1>
+    </div>
+    <div class="nav">
+        <a href="/about">ℹ️ Acerca de</a>
+        <a href="/documentacion">📖 Documentación</a>
+    </div>
+    <div class="container">
+        <% if (results.error) { %>
+            <p class="fail">⚠️ <%= results.error %></p>
+        <% } else { %>
+            <h2>Resumen General</h2>
+            <canvas id="testChart"></canvas>
+            <script>
+                const ctx = document.getElementById('testChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Suite Aprobadas', 'Suite Fallidas', 'Suite Pendientes', 'Passed Tests'],
+                        datasets: [{
+                            data: [`<%= results.numPassedTestSuites %>`, `<%= results.numFailedTestSuites %>`, `<%= results.numPendingTests %>`, `<%= results.numPassedTests %>`],
+                            backgroundColor: ['green', 'red', 'yellow', 'blue']
+                        }]
+                    }
+                });
+            </script>
+            <table>
+                <tr><th>Métrica</th><th>Valor</th></tr>
+                <tr><td>Total Suites</td><td><%= results.numTotalTestSuites %></td></tr>
+                <tr><td>✔️ Passed Suites</td><td class="success"><%= results.numPassedTestSuites %></td></tr>
+                <tr><td>❌ Failed Suites</td><td class="fail"><%= results.numFailedTestSuites %></td></tr>
+                <tr><td>Total Tests</td><td><%= results.numTotalTests %></td></tr>
+                <tr><td>✔️ Passed Tests</td><td class="success"><%= results.numPassedTests %></td></tr>
+                <tr><td>❌ Failed Tests</td><td class="fail"><%= results.numFailedTests %></td></tr>
+                <tr><td>⏳ Pending Tests</td><td><%= results.numPendingTests %></td></tr>
+            </table>
+
+            <% results.testResults.forEach(suite => { %>
+                <h3>Suite: <%= suite.name %></h3>
+                <p>Status: <%= suite.status %></p>
+                <p>Duración: <%= suite.endTime - suite.startTime %> ms</p>
+                <table>
+                    <tr><th>Test</th><th>Estado</th><th>Duración (ms)</th></tr>
+                    <% suite.assertionResults.forEach(test => { %>
+                        <tr>
+                            <td><%= test.fullName %></td>
+                            <td class="<%= test.status === 'passed' ? 'success' : 'fail' %>"><%= test.status %></td>
+                            <td><%= test.duration %></td>
+                        </tr>
+                    <% }) %>
+                </table>
+            <% }) %>
+        <% } %>
+    </div>
+    <script>
+        setInterval(() => {
+            location.reload(); // Recargar página cada 10 segundos
+        }, 5000);
+    </script>
+    <button class="run-tests-button" onclick="runTests()">Ejecutar Pruebas</button>
+    <script>
+        const testResults = '<%= JSON.stringify(results.testResults) %>';
+
+        let totalPassed = 0;
+        let totalFailed = 0;
+        let totalPending = 0;
+
+        testResults.forEach(suite => {
+            suite.assertionResults.forEach(test => {
+                if (test.status === 'passed') {
+                    totalPassed++;
+                } else if (test.status === 'failed') {
+                    totalFailed++;
+                } else if (test.status === 'pending') {
+                    totalPending++;
+                }
+            });
+        });
+        
+        function runTests() {
+            fetch('/run-tests', {
+                method: 'POST'
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error ejecutando las pruebas');
+            });
+        }
+    </script>
+</body>
+</html>
