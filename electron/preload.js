@@ -1,3 +1,9 @@
+const { contextBridge, ipcRenderer } = require('electron');
+
+contextBridge.exposeInMainWorld('electronAPI', {
+    getJestResults: () => ipcRenderer.invoke('get-jest-results'),
+});
+
 window.addEventListener('DOMContentLoaded', () => {
     const replaceText = (selector, text) => {
         const element = document.getElementById(selector);

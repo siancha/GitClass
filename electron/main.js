@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const server = require('../src/server/index');
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -9,16 +10,21 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
             contextIsolation: false,
+            nodeIntegration: false, // 🔥 Seguridad: No exponer Node.js en el renderer
         },
     });
 
-    mainWindow.loadFile(path.join(__dirname, 'index.html'));
-    // Ruta absoluta al archivo index.html dentro de lcov-report
-    //const reportPath = path.join('C:', 'Users', 'Fktech', 'OneDrive - FK TECH SRL', 'Escritorio', 'GitClass', 'coverage', 'lcov-report', 'index.html');
-    //mainWindow.loadFile(reportPath);
+    //mainWindow.loadFile(path.join(__dirname, 'index.html'));
+
+    // Cargar la vista EJS servida por Express
+    mainWindow.loadURL('http://localhost:1233/reports');
+
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+    createWindow();
+    server.start(); 
+});
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
