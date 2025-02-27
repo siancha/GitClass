@@ -36,7 +36,12 @@
         .test-case.failed {
             color: red;
         }
+        .chart-container {
+            width: 50%;
+            margin: auto;
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Resultados de las Pruebas de Jest</h1>
@@ -49,101 +54,137 @@
         <div><strong>Pruebas Fallidas:</strong> <span id="failedTests"></span></div>
     </div>
     <div id="testResults"></div>
+    <div class="chart-container">
+        <canvas id="testResultsChart"></canvas>
+    </div>
 
     <script>
-        const results = {
-            "numFailedTestSuites": 0,
-            "numFailedTests": 0,
-            "numPassedTestSuites": 1,
-            "numPassedTests": 3,
-            "numPendingTestSuites": 0,
-            "numPendingTests": 0,
-            "numRuntimeErrorTestSuites": 0,
-            "numTodoTests": 0,
-            "numTotalTestSuites": 1,
-            "numTotalTests": 3,
-            "testResults": [
-                {
-                    "assertionResults": [
-                        {
-                            "ancestorTitles": [
-                                "analizarCodigo"
-                            ],
-                            "duration": 8,
-                            "failureDetails": [],
-                            "failureMessages": [],
-                            "fullName": "analizarCodigo debería listar y analizar los archivos en un directorio",
-                            "invocations": 1,
-                            "location": null,
-                            "numPassingAsserts": 0,
-                            "retryReasons": [],
-                            "status": "passed",
-                            "title": "debería listar y analizar los archivos en un directorio"
-                        },
-                        {
-                            "ancestorTitles": [
-                                "analizarCodigo"
-                            ],
-                            "duration": 1,
-                            "failureDetails": [],
-                            "failureMessages": [],
-                            "fullName": "analizarCodigo debería seguir buenas prácticas",
-                            "invocations": 1,
-                            "location": null,
-                            "numPassingAsserts": 1,
-                            "retryReasons": [],
-                            "status": "passed",
-                            "title": "debería seguir buenas prácticas"
-                        },
-                        {
-                            "ancestorTitles": [
-                                "analizarCodigo"
-                            ],
-                            "duration": 3,
-                            "failureDetails": [],
-                            "failureMessages": [],
-                            "fullName": "analizarCodigo debería no tener más de 80 caracteres por línea",
-                            "invocations": 1,
-                            "location": null,
-                            "numPassingAsserts": 33,
-                            "retryReasons": [],
-                            "status": "passed",
-                            "title": "debería no tener más de 80 caracteres por línea"
-                        }
-                    ],
-                    "endTime": 1739898335752,
-                    "message": "",
-                    "name": "C:\\Users\\Fktech\\OneDrive - FK TECH SRL\\Escritorio\\GitClass\\src\\tests\\codeAnalyzer.test.js",
-                    "startTime": 1739898335254,
-                    "status": "passed",
-                    "summary": ""
-                }
-            ]
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            const results = {
+                "numFailedTestSuites": 0,
+                "numFailedTests": 0,
+                "numPassedTestSuites": 1,
+                "numPassedTests": 3,
+                "numPendingTestSuites": 0,
+                "numPendingTests": 0,
+                "numRuntimeErrorTestSuites": 0,
+                "numTodoTests": 0,
+                "numTotalTestSuites": 1,
+                "numTotalTests": 3,
+                "testResults": [
+                    {
+                        "assertionResults": [
+                            {
+                                "ancestorTitles": [
+                                    "analizarCodigo"
+                                ],
+                                "duration": 8,
+                                "failureDetails": [],
+                                "failureMessages": [],
+                                "fullName": "analizarCodigo debería listar y analizar los archivos en un directorio",
+                                "invocations": 1,
+                                "location": null,
+                                "numPassingAsserts": 0,
+                                "retryReasons": [],
+                                "status": "passed",
+                                "title": "debería listar y analizar los archivos en un directorio"
+                            },
+                            {
+                                "ancestorTitles": [
+                                    "analizarCodigo"
+                                ],
+                                "duration": 1,
+                                "failureDetails": [],
+                                "failureMessages": [],
+                                "fullName": "analizarCodigo debería seguir buenas prácticas",
+                                "invocations": 1,
+                                "location": null,
+                                "numPassingAsserts": 1,
+                                "retryReasons": [],
+                                "status": "passed",
+                                "title": "debería seguir buenas prácticas"
+                            },
+                            {
+                                "ancestorTitles": [
+                                    "analizarCodigo"
+                                ],
+                                "duration": 3,
+                                "failureDetails": [],
+                                "failureMessages": [],
+                                "fullName": "analizarCodigo debería no tener más de 80 caracteres por línea",
+                                "invocations": 1,
+                                "location": null,
+                                "numPassingAsserts": 33,
+                                "retryReasons": [],
+                                "status": "passed",
+                                "title": "debería no tener más de 80 caracteres por línea"
+                            }
+                        ],
+                        "endTime": 1739898335752,
+                        "message": "",
+                        "name": "C:\\Users\\Fktech\\OneDrive - FK TECH SRL\\Escritorio\\GitClass\\src\\tests\\codeAnalyzer.test.js",
+                        "startTime": 1739898335254,
+                        "status": "passed",
+                        "summary": ""
+                    }
+                ]
+            };
 
-        document.getElementById('totalTestSuites').textContent = results.numTotalTestSuites;
-        document.getElementById('passedTestSuites').textContent = results.numPassedTestSuites;
-        document.getElementById('failedTestSuites').textContent = results.numFailedTestSuites;
-        document.getElementById('totalTests').textContent = results.numTotalTests;
-        document.getElementById('passedTests').textContent = results.numPassedTests;
-        document.getElementById('failedTests').textContent = results.numFailedTests;
+            document.getElementById('totalTestSuites').textContent = results.numTotalTestSuites;
+            document.getElementById('passedTestSuites').textContent = results.numPassedTestSuites;
+            document.getElementById('failedTestSuites').textContent = results.numFailedTestSuites;
+            document.getElementById('totalTests').textContent = results.numTotalTests;
+            document.getElementById('passedTests').textContent = results.numPassedTests;
+            document.getElementById('failedTests').textContent = results.numFailedTests;
 
-        const testResultsContainer = document.getElementById('testResults');
+            const testResultsContainer = document.getElementById('testResults');
 
-        results.testResults.forEach(suite => {
-            const suiteDiv = document.createElement('div');
-            suiteDiv.classList.add('test-suite');
-            suiteDiv.innerHTML = `<h2>${suite.name}</h2>`;
+            results.testResults.forEach(suite => {
+                const suiteDiv = document.createElement('div');
+                suiteDiv.classList.add('test-suite');
+                suiteDiv.innerHTML = `<h2>${suite.name}</h2>`;
 
-            suite.assertionResults.forEach(test => {
-                const testDiv = document.createElement('div');
-                testDiv.classList.add('test-case');
-                testDiv.classList.add(test.status);
-                testDiv.textContent = `${test.title} (${test.duration} ms)`;
-                suiteDiv.appendChild(testDiv);
+                suite.assertionResults.forEach(test => {
+                    const testDiv = document.createElement('div');
+                    testDiv.classList.add('test-case');
+                    testDiv.classList.add(test.status);
+                    testDiv.textContent = `${test.title} (${test.duration} ms)`;
+                    suiteDiv.appendChild(testDiv);
+                });
+
+                testResultsContainer.appendChild(suiteDiv);
             });
 
-            testResultsContainer.appendChild(suiteDiv);
+            // Crear gráfico con Chart.js
+            const ctx = document.getElementById('testResultsChart').getContext('2d');
+            const testResultsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Tests', 'Passed Tests', 'Failed Tests'],
+                    datasets: [{
+                        label: 'Test Results',
+                        data: [results.numTotalTests, results.numPassedTests, results.numFailedTests],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(255, 99, 132, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
         });
     </script>
 </body>

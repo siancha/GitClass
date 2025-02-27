@@ -12,23 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loadTestResults = loadTestResults;
-const fs_1 = __importDefault(require("fs"));
-const path_1 = __importDefault(require("path"));
-function loadTestResults() {
+exports.deleteFolderRecursive = deleteFolderRecursive;
+const promises_1 = __importDefault(require("fs/promises"));
+function deleteFolderRecursive(folderPath) {
     return __awaiter(this, void 0, void 0, function* () {
-        const filePath = path_1.default.join(__dirname, '../reports/jest-results.json');
         try {
-            const data = yield fs_1.default.promises.readFile(filePath, 'utf-8');
-            return JSON.parse(data);
+            yield promises_1.default.rm(folderPath, { recursive: true, force: true });
+            console.log(`✅ Carpeta eliminada: ${folderPath}`);
         }
         catch (error) {
-            console.error('Error loading test results:', error);
-            throw error;
+            console.error('❌ Error eliminando el folder:', error);
         }
     });
 }
-console.log('🔔 Cargando resultados de pruebas...');
-loadTestResults().then((results) => {
-    console.log('✅ Resultados de pruebas cargados:', results);
-});

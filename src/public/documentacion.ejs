@@ -3,76 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Documentación</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #eef1f5;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        .header {
-            background-color: #004080;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            color: #004080;
-        }
-        .nav {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .nav a {
-            text-decoration: none;
-            color: #004080;
-            font-weight: bold;
-            margin: 0 15px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            background-color: #f4f4f4;
-            transition: background 0.3s;
-        }
-        .nav a:hover {
-            background-color: #004080;
-            color: white;
-        }
-        .section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="header">
         <h1>📖 Documentación de la Aplicación</h1>
     </div>
+    <div class="nav">
+        <a href="/reports">🏠 Inicio</a> 
+    </div>
     <div class="container">
         <div class="section">
-            <h2>Introducción</h2>
+            <h2><i class="fas fa-info-circle"></i> Introducción</h2>
             <p>Esta aplicación muestra los resultados de pruebas Jest en un formato visual fácil de interpretar, permitiendo a los desarrolladores analizar el rendimiento de su código.</p>
         </div>
         <div class="section">
-            <h2>Uso de la Aplicación</h2>
-            <p>Para visualizar los resultados, accede a la página principal donde se listan las pruebas ejecutadas con sus respectivos estados y detalles.</p>
+            <h2><i class="fas fa-folder-open"></i> Estructura del Proyecto</h2>
+            <p>El proyecto está organizado en las siguientes carpetas y archivos:</p>
+            <ul>
+                <li><code>src/</code>: Carpeta principal del código fuente.</li>
+                <li><code>src/analysis/</code>: Contiene los scripts de análisis de código.</li>
+                <li><code>src/public/</code>: Contiene los archivos estáticos y las vistas EJS.</li>
+                <li><code>src/reports/</code>: Contiene los informes generados por el análisis de código y las pruebas.</li>
+                <li><code>src/server/</code>: Contiene los archivos del servidor Express.</li>
+                <li><code>src/tests/</code>: Contiene los archivos de pruebas automatizadas.</li>
+                <li><code>src/utils/</code>: Contiene utilidades y funciones auxiliares.</li>
+                <li><code>.env</code>: Archivo de configuración de variables de entorno.</li>
+            </ul>
         </div>
         <div class="section">
-            <h2>Formato de Datos</h2>
-            <p>Los resultados de las pruebas se estructuran en JSON y se renderizan dinámicamente en HTML para facilitar su lectura.</p>
+            <h2><i class="fas fa-cogs"></i> Configuración Inicial</h2>
+            <p>Para configurar y ejecutar el proyecto por primera vez, sigue estos pasos:</p>
+            <ol>
+                <li>Clona el repositorio del proyecto.</li>
+                <li>Instala las dependencias utilizando <code>npm install</code>.</li>
+                <li>Crea un archivo <code>.env</code> en la raíz del proyecto y define las variables de entorno necesarias.</li>
+                <li>Ejecuta el servidor utilizando <code>npm start</code>.</li>
+            </ol>
+        </div>
+        <div class="section">
+            <h2><i class="fab fa-node-js"></i> Uso de Node.js</h2>
+            <p>Node.js es un entorno de ejecución para JavaScript que permite ejecutar código JavaScript en el servidor. En este proyecto, se utiliza para crear un servidor web con Express, manejar solicitudes HTTP y ejecutar scripts de análisis de código.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-vial"></i> Uso de Jest</h2>
+            <p>Jest es un framework de pruebas para JavaScript. En este proyecto, se utiliza para ejecutar pruebas automatizadas y generar informes de resultados. Los resultados de las pruebas se guardan en formato JSON y se visualizan en la aplicación.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-sliders-h"></i> Variables de Entorno</h2>
+            <p>Las variables de entorno se utilizan para configurar parámetros del entorno de ejecución sin necesidad de modificar el código fuente. En este proyecto, las variables de entorno se definen en un archivo <code>.env</code> y se cargan utilizando la biblioteca <code>dotenv</code>. Algunas de las variables de entorno utilizadas son:</p>
+            <ul>
+                <li><code>NGROK_AUTHTOKEN</code>: Token de autenticación para Ngrok.</li>
+                <li><code>GITHUB_TOKEN</code>: Token de autenticación para la API de GitHub.</li>
+                <li><code>OPENAI_API_KEY</code>: Clave de API para OpenAI.</li>
+                <li><code>PORT</code>: Puerto en el que se ejecuta el servidor.</li>
+                <li><code>TEMP_FOLDER</code>: Carpeta temporal para análisis.</li>
+                <li><code>SCRIPTS_FOLDER</code>: Carpeta de scripts para análisis.</li>
+                <li><code>GITHUB_WEBHOOK_URL</code>: URL del webhook de GitHub.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-code"></i> Uso de TypeScript</h2>
+            <p>TypeScript es un superset de JavaScript que añade tipado estático y otras características avanzadas. En este proyecto, se utiliza para mejorar la calidad del código y facilitar el mantenimiento. Los archivos TypeScript se compilan a JavaScript antes de ser ejecutados.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-network-wired"></i> Uso de Ngrok</h2>
+            <p>Ngrok es una herramienta que permite exponer un servidor local a Internet a través de un túnel seguro. En este proyecto, se utiliza para exponer el servidor web a Internet y permitir que GitHub envíe eventos de webhook al servidor local.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fab fa-github"></i> Comunicación con GitHub</h2>
+            <p>La aplicación se comunica con GitHub a través de webhooks. Cuando se realiza un push a un repositorio de GitHub, GitHub envía un evento de webhook al servidor. El servidor clona el repositorio, ejecuta análisis de código y pruebas automatizadas, y muestra los resultados en la aplicación.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-server"></i> Uso de Express</h2>
+            <p>Express es un framework para Node.js que facilita la creación de aplicaciones web y APIs. En este proyecto, se utiliza para crear el servidor web, manejar solicitudes HTTP, servir archivos estáticos y renderizar vistas utilizando EJS.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-desktop"></i> Uso de Electron</h2>
+            <p>Electron es un framework para crear aplicaciones de escritorio utilizando tecnologías web como HTML, CSS y JavaScript. Aunque este proyecto no utiliza Electron directamente, se puede considerar su uso para empaquetar la aplicación web como una aplicación de escritorio en el futuro.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-search"></i> Análisis de Código</h2>
+            <p>El análisis de código se realiza utilizando scripts personalizados que analizan los archivos de código fuente y calculan diversas métricas, como el número de líneas, palabras, caracteres, comentarios, funciones, variables, complejidad ciclomática y profundidad máxima de anidamiento. Los resultados del análisis se guardan en un archivo JSON y se visualizan en la aplicación.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-check-circle"></i> Pruebas Automatizadas</h2>
+            <p>Las pruebas automatizadas se configuran y ejecutan utilizando Jest. Los resultados de las pruebas se guardan en un archivo JSON y se visualizan en la aplicación. Las pruebas se ejecutan automáticamente cuando se recibe un evento de webhook de GitHub.</p>
+        </div>
+        <div class="section">
+            <h2><i class="fas fa-cloud-upload-alt"></i> Despliegue</h2>
+            <p>Para desplegar la aplicación en un entorno de producción, sigue estos pasos:</p>
+            <ol>
+                <li>Configura las variables de entorno necesarias en el servidor de producción.</li>
+                <li>Instala las dependencias utilizando <code>npm install</code>.</li>
+                <li>Compila los archivos TypeScript a JavaScript utilizando <code>tsc</code>.</li>
+                <li>Ejecuta el servidor utilizando <code>npm start</code>.</li>
+                <li>Configura Ngrok para exponer el servidor a Internet y actualiza el webhook de GitHub con la nueva URL de Ngrok.</li>
+            </ol>
         </div>
     </div>
-    <a href="/reports" class="back-button">Volver</a>
 </body>
 </html>

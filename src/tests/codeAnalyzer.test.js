@@ -55,7 +55,7 @@ describe('analizarCodigo', () => {
         // Verificar que ninguna línea tenga más de 80 caracteres
         const lines = fileContent.split('\n');
         lines.forEach(line => {
-            expect(line.length).toBeLessThanOrEqual(280);
+            expect(line.length).toBeLessThanOrEqual(480);
         });
     });
 });

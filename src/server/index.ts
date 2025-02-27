@@ -7,15 +7,16 @@ import dotenv from "dotenv";
 import { connect } from "@ngrok/ngrok";
 import { analizarCodigo } from "../analysis/codeAnalyzer";
 import axios from "axios";
-import { run } from 'jest';
+import { deleteFolderRecursive } from "../utils/deleteFolder";
+import { runTests } from "../utils/runTest";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 1234;
 const TEMP_FOLDER = process.env.TEMP_FOLDER || path.join("C:", "temp"); // Carpeta temporal para análisis
-const SCRIPTS_FOLDER = path.join("C:", "temp", "GitClass", "src", "server");
-const SCRIPTS_TEST = path.join("C:", "temp", "GitClass", "src", "tests");
+const SCRIPTS_FOLDER = path.join("C:", "temp", "GitClass", "src");
+const SCRIPTS_TEST = path.join("C:", "temp", "GitClass");
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../public'));
@@ -38,6 +39,22 @@ app.get('/documentacion', (req, res) => {
     res.render('documentacion');
 });
 
+
+
+app.get('/codeTest', async (req, res) => {
+    const resultsPath = path.join(__dirname, '../reports/analysis_results.json');
+    analizarCodigo(SCRIPTS_FOLDER);
+
+    try {
+        const data = await fs.promises.readFile(resultsPath, 'utf8');
+        const analysisResults = await JSON.parse(data);
+        res.render('codeTest', { analysisResults });
+    } catch (error) {
+        console.error('Error reading analysis results:', error);
+        res.status(500).send('Error reading analysis results');
+    }
+});
+
 app.get('/reports', (req, res) => {
     const resultsPath = path.join(__dirname, '../reports/jest-results.json');
     console.log('📄 Leyendo resultados de Jest:', resultsPath);
@@ -56,36 +73,27 @@ app.get('/reports', (req, res) => {
 
 // Endpoint para ejecutar los tests
 app.post("/run-tests", async (req, res) => {
-    console.log("Ejecutando Jest...");
-
-    exec("jest --json --outputFile=temp-test-results.json", async (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error ejecutando Jest: ${stderr}`);
-            return res.status(500).json({ error: "Error ejecutando Jest", details: stderr });
-        }
-
-        // Importar fs para leer el archivo generado por Jest
-        const resultsFile = "temp-test-results.json";
-
-        try {
-            const data = await fs.promises.readFile(resultsFile, "utf8");
-            const results = JSON.parse(data);
-            res.json(results);
-        } catch (err) {
-            console.error("Error leyendo los resultados de Jest:", err);
-            res.status(500).json({ error: "No se pudieron leer los resultados de Jest" });
-        }
-    });
+    try {
+        await analizarCodigo(SCRIPTS_FOLDER);
+        await runTests();
+        res.sendStatus(200);
+    } catch (error) {
+        console.error("❌ Error ejecutando pruebas:", error);
+        const errorMessage = (error as Error).message;
+        res.status(500).send(errorMessage);
+    }
 });
-
 // Ruta del Webhook
 app.post("/webhook/github", (req, res) => {
+    // Eliminar el folder clonado si ya existe
+    deleteFolderRecursive(SCRIPTS_TEST);
+    
     console.log("🔔 Webhook recibido:", req.headers["x-github-event"]);
     console.log("📦 Payload:", JSON.stringify(req.body, null, 2));
 
     const event = req.headers["x-github-event"];
-    const payload = req.body;
-    
+    const payload = req.body;    
+
     console.log("🔔 Webhook recibido:", event);
     if (event === "push") {
         const repoUrl = payload.repository.clone_url;
@@ -98,12 +106,6 @@ app.post("/webhook/github", (req, res) => {
         const repoPath = path.join(TEMP_FOLDER, repoName);
         const safeRepoPath = `"${repoPath}"`;
 
-        // Si ya existe el repo en la carpeta, eliminarlo primero
-        if (fs.existsSync(safeRepoPath)) {
-            fs.rmSync(safeRepoPath, { recursive: true, force: true });
-        }
-        console.log(`📂 Carpeta temporal limpia: ${safeRepoPath}`);
-
         // Clonar el repositorio
         exec(`git clone ${repoUrl} ${safeRepoPath}`, (error, stdout, stderr) => {
             if (error) {
@@ -115,8 +117,8 @@ app.post("/webhook/github", (req, res) => {
             console.log(`📂 Analizando código...`);
 
             // Llamar a la función de análisis
-            analizarCodigo(repoPath);
-
+            analizarCodigo(SCRIPTS_FOLDER);
+            // Enviar respuesta exitosa
             res.sendStatus(200);
         });
     } else {
@@ -149,7 +151,10 @@ export function start() {
                 fs.writeFileSync("ngrok-url.txt", ngrokUrl);
 
                 // Actualizar el webhook de GitHub
-                const githubWebhookUrl = `https://api.github.com/repos/siancha/GitClass/hooks/529804741`; // Reemplaza {hook_id} con el ID del webhook
+                const githubWebhookUrl = process.env.GITHUB_WEBHOOK_URL as string; // URL del webhook de GitHub
+                if (!githubWebhookUrl) {
+                    throw new Error("GITHUB_WEBHOOK_URL is not defined in the environment variables");
+                }
                 const webhookConfig = {
                     config: {
                         url: `${ngrokUrl}/webhook/github`,

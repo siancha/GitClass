@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Resultados de Análisis de Código</title>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 Resultados de Análisis de Código</h1>
+    </div>
+    <div class="nav">
+        <a href="/reports">🏠 Inicio</a> 
+    </div>
+    <div class="container">
+        <% if (!analysisResults || analysisResults.length === 0) { %>
+            <p class="fail">⚠️ No hay resultados de análisis disponibles.</p>
+        <% } else { %>
+            <% analysisResults.forEach(folder => { %>
+                <% if (folder.results && folder.results.length > 0) { %>
+                    <h2>Carpeta: <%= folder.folder %></h2>
+                    <% folder.results.forEach(file => { %>
+                        <h3>Archivo: <%= file.filePath %></h3>
+                        <table>
+                            <tr><th>Métrica</th><th>Valor</th></tr>
+                            <tr><td>Número de Líneas</td><td><%= file.numberOfLines %></td></tr>
+                            <tr><td>Número de Palabras</td><td><%= file.numberOfWords %></td></tr>
+                            <tr><td>Número de Caracteres</td><td><%= file.numberOfCharacters %></td></tr>
+                            <tr><td>Número de Comentarios</td><td><%= file.numberOfComments %></td></tr>
+                            <tr><td>Número de Funciones</td><td><%= file.numberOfFunctions %></td></tr>
+                            <tr><td>Número de Variables</td><td><%= file.numberOfVariables %></td></tr>
+                            <tr><td>Complejidad Ciclomática</td><td><%= file.cyclomaticComplexity %></td></tr>
+                            <tr><td>Profundidad Máxima de Anidamiento</td><td><%= file.maxNestingDepth %></td></tr>
+                        </table>
+                        <% if (file.functionDetails && file.functionDetails.length > 0) { %>
+                            <h4>Detalles de Funciones</h4>
+                            <table>
+                                <tr><th>Nombre</th><th>Longitud</th><th>Línea de Inicio</th><th>Línea de Fin</th></tr>
+                                <% file.functionDetails.forEach(func => { %>
+                                    <tr>
+                                        <td><%= func.name %></td>
+                                        <td><%= func.length %></td>
+                                        <td><%= func.startLine %></td>
+                                        <td><%= func.endLine %></td>
+                                    </tr>
+                                <% }) %>
+                            </table>
+                        <% } %>
+                    <% }) %>
+                <% } %>
+            <% }) %>
+        <% } %>
+    </div>
+</body>
+</html>

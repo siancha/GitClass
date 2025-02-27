@@ -1,0 +1,282 @@
+[
+  {
+    "folder": "C:\\temp\\GitClass\\src\\analysis",
+    "results": [
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\analysis\\codeAnalyzer.js",
+        "numberOfLines": 105,
+        "numberOfWords": 458,
+        "numberOfCharacters": 5185,
+        "numberOfComments": 9,
+        "numberOfFunctions": 8,
+        "numberOfVariables": 30,
+        "cyclomaticComplexity": 38,
+        "maxNestingDepth": 5,
+        "functionDetails": [
+          {
+            "name": "adopt",
+            "length": 1,
+            "startLine": 3,
+            "endLine": 3
+          },
+          {
+            "name": "fulfilled",
+            "length": 1,
+            "startLine": 5,
+            "endLine": 5
+          },
+          {
+            "name": "rejected",
+            "length": 1,
+            "startLine": 6,
+            "endLine": 6
+          },
+          {
+            "name": "step",
+            "length": 1,
+            "startLine": 7,
+            "endLine": 7
+          },
+          {
+            "name": "analizarCodigo",
+            "length": 7,
+            "startLine": 22,
+            "endLine": 28
+          },
+          {
+            "name": "calculateCyclomaticComplexity",
+            "length": 4,
+            "startLine": 63,
+            "endLine": 66
+          },
+          {
+            "name": "calculateMaxNestingDepth",
+            "length": 9,
+            "startLine": 68,
+            "endLine": 76
+          },
+          {
+            "name": "calculateFunctionDetails",
+            "length": 2,
+            "startLine": 85,
+            "endLine": 86
+          }
+        ]
+      },
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\analysis\\codeAnalyzer.ts",
+        "numberOfLines": 104,
+        "numberOfWords": 351,
+        "numberOfCharacters": 4112,
+        "numberOfComments": 9,
+        "numberOfFunctions": 4,
+        "numberOfVariables": 26,
+        "cyclomaticComplexity": 24,
+        "maxNestingDepth": 4,
+        "functionDetails": [
+          {
+            "name": "analizarCodigo",
+            "length": 7,
+            "startLine": 10,
+            "endLine": 16
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C:\\temp\\GitClass\\src\\public",
+    "results": []
+  },
+  {
+    "folder": "C:\\temp\\GitClass\\src\\reports",
+    "results": []
+  },
+  {
+    "folder": "C:\\temp\\GitClass\\src\\server",
+    "results": [
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\server\\index.js",
+        "numberOfLines": 164,
+        "numberOfWords": 729,
+        "numberOfCharacters": 7738,
+        "numberOfComments": 14,
+        "numberOfFunctions": 5,
+        "numberOfVariables": 33,
+        "cyclomaticComplexity": 33,
+        "maxNestingDepth": 6,
+        "functionDetails": [
+          {
+            "name": "adopt",
+            "length": 1,
+            "startLine": 3,
+            "endLine": 3
+          },
+          {
+            "name": "fulfilled",
+            "length": 1,
+            "startLine": 5,
+            "endLine": 5
+          },
+          {
+            "name": "rejected",
+            "length": 1,
+            "startLine": 6,
+            "endLine": 6
+          },
+          {
+            "name": "step",
+            "length": 1,
+            "startLine": 7,
+            "endLine": 7
+          },
+          {
+            "name": "start",
+            "length": 3,
+            "startLine": 127,
+            "endLine": 129
+          }
+        ]
+      },
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\server\\index.ts",
+        "numberOfLines": 175,
+        "numberOfWords": 597,
+        "numberOfCharacters": 6314,
+        "numberOfComments": 14,
+        "numberOfFunctions": 1,
+        "numberOfVariables": 22,
+        "cyclomaticComplexity": 20,
+        "maxNestingDepth": 6,
+        "functionDetails": [
+          {
+            "name": "start",
+            "length": 3,
+            "startLine": 136,
+            "endLine": 138
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C:\\temp\\GitClass\\src\\tests",
+    "results": [
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\tests\\codeAnalyzer.test.js",
+        "numberOfLines": 61,
+        "numberOfWords": 228,
+        "numberOfCharacters": 2402,
+        "numberOfComments": 13,
+        "numberOfFunctions": 0,
+        "numberOfVariables": 13,
+        "cyclomaticComplexity": 12,
+        "maxNestingDepth": 4,
+        "functionDetails": []
+      },
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\tests\\suma.test.js",
+        "numberOfLines": 25,
+        "numberOfWords": 90,
+        "numberOfCharacters": 688,
+        "numberOfComments": 4,
+        "numberOfFunctions": 0,
+        "numberOfVariables": 0,
+        "cyclomaticComplexity": 1,
+        "maxNestingDepth": 2,
+        "functionDetails": []
+      }
+    ]
+  },
+  {
+    "folder": "C:\\temp\\GitClass\\src\\utils",
+    "results": [
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\utils\\loadTestResult.js",
+        "numberOfLines": 36,
+        "numberOfWords": 187,
+        "numberOfCharacters": 1756,
+        "numberOfComments": 1,
+        "numberOfFunctions": 5,
+        "numberOfVariables": 7,
+        "cyclomaticComplexity": 18,
+        "maxNestingDepth": 3,
+        "functionDetails": [
+          {
+            "name": "adopt",
+            "length": 1,
+            "startLine": 3,
+            "endLine": 3
+          },
+          {
+            "name": "fulfilled",
+            "length": 1,
+            "startLine": 5,
+            "endLine": 5
+          },
+          {
+            "name": "rejected",
+            "length": 1,
+            "startLine": 6,
+            "endLine": 6
+          },
+          {
+            "name": "step",
+            "length": 1,
+            "startLine": 7,
+            "endLine": 7
+          },
+          {
+            "name": "loadTestResults",
+            "length": 8,
+            "startLine": 18,
+            "endLine": 25
+          }
+        ]
+      },
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\utils\\loadTestResult.ts",
+        "numberOfLines": 20,
+        "numberOfWords": 63,
+        "numberOfCharacters": 650,
+        "numberOfComments": 1,
+        "numberOfFunctions": 1,
+        "numberOfVariables": 3,
+        "cyclomaticComplexity": 4,
+        "maxNestingDepth": 3,
+        "functionDetails": []
+      },
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\utils\\suma.js",
+        "numberOfLines": 7,
+        "numberOfWords": 21,
+        "numberOfCharacters": 143,
+        "numberOfComments": 0,
+        "numberOfFunctions": 1,
+        "numberOfVariables": 0,
+        "cyclomaticComplexity": 2,
+        "maxNestingDepth": 1,
+        "functionDetails": [
+          {
+            "name": "sum",
+            "length": 3,
+            "startLine": 4,
+            "endLine": 6
+          }
+        ]
+      },
+      {
+        "filePath": "C:\\temp\\GitClass\\src\\utils\\suma.ts",
+        "numberOfLines": 5,
+        "numberOfWords": 14,
+        "numberOfCharacters": 75,
+        "numberOfComments": 0,
+        "numberOfFunctions": 1,
+        "numberOfVariables": 0,
+        "cyclomaticComplexity": 2,
+        "maxNestingDepth": 1,
+        "functionDetails": []
+      }
+    ]
+  }
+]

@@ -17,8 +17,8 @@ describe('sum', () => {
         expect(sum(0, 0)).toBe(0);
     });
 
-    //it('Debe devolver la suma de un número y 0', () => {
-     //   expect(sum(5, 0)).toBe(5);
-     //   expect(sum(0, 5)).toBe(5);
-    //});
+    it('Debe devolver la suma de un número y 0', () => {
+        expect(sum(5, 0)).toBe(5);
+        expect(sum(0, 5)).toBe(5);
+    });
 });
